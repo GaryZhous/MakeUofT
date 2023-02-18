@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <M5Stack.h>
+#include "WiFi.h"
+extern void initWiFi();
 //set the frequency of the speaker (unit: Hz)
 enum frequency{
   F1 = 200,
@@ -10,11 +12,15 @@ enum frequency{
 };
 
 void setup() {
+    Serial.begin(115200);
     M5.begin();    
     M5.Power.begin(); 
     M5.Lcd.setTextSize(2);
     M5.lcd.setCursor(25,100);
-    M5.lcd.println("Ready!");
+    WiFi.mode(WIFI_STA);
+    WiFi.disconnect();
+    delay(100);
+    initWiFi();
 }
 
 void loop() {
@@ -33,4 +39,16 @@ void loop() {
         delay(500);
         M5.lcd.clear();
     }
+}
+
+void initWiFi() {
+  WiFi.mode(WIFI_STA);
+  WiFi.begin();
+  M5.Lcd.setCursor(25, 100);
+  M5.Lcd.println("Connecting to WiFi ..");
+  while (WiFi.status() != WL_CONNECTED) {
+    M5.Lcd.println('.');
+    delay(1000);
+  }
+  M5.Lcd.println("Ready");
 }
