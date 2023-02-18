@@ -11,13 +11,16 @@ enum frequency{
   F5 = 900
 };
 
+const char* ssid = "RPM";
+const char* password = "helloworld";
+
 void setup() {
     Serial.begin(115200);
     M5.begin();    
     M5.Power.begin(); 
     M5.Lcd.setTextSize(2);
     M5.lcd.setCursor(25,100);
-    WiFi.mode(WIFI_STA);
+    WiFi.mode(WIFI_AP);
     WiFi.disconnect();
     delay(100);
     initWiFi();
@@ -42,13 +45,15 @@ void loop() {
 }
 
 void initWiFi() {
-  WiFi.mode(WIFI_STA);
-  WiFi.begin();
+  WiFi.mode(WIFI_AP);
+  WiFi.begin(ssid, password);
   M5.Lcd.setCursor(25, 100);
-  M5.Lcd.println("Connecting to WiFi ..");
+  M5.Lcd.println("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     M5.Lcd.println('.');
     delay(1000);
   }
-  M5.Lcd.println("Ready");
+  M5.Lcd.clear();
+  M5.Lcd.setCursor(25, 100);
+  M5.Lcd.println("Ready!");
 }
