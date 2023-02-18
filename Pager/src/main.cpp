@@ -2,6 +2,7 @@
 #include <M5Stack.h>
 #include "WiFi.h"
 extern void initWiFi();
+extern void displaypower();
 //set the frequency of the speaker (unit: Hz)
 enum frequency{
   F1 = 200,
@@ -41,6 +42,7 @@ void loop() {
         M5.Speaker.end();
         delay(500);
         M5.lcd.clear();
+        displaypower();
     }
 }
 
@@ -56,4 +58,16 @@ void initWiFi() {
   M5.Lcd.clear();
   M5.Lcd.setCursor(25, 100);
   M5.Lcd.println("Ready!");
+}
+
+void displaypower(){
+  char buf[100];
+  sprintf(buf, "Current battery: %d%c", M5.Power.getBatteryLevel(), (char)37);
+  M5.Lcd.setCursor(25, 90);
+  M5.Lcd.println(buf);
+  sprintf(buf, "%s", M5.Power.isCharging() ? "Charging!" : "Discharging!");
+  M5.Lcd.setCursor(25, 110);
+  M5.Lcd.println(buf);
+  delay(1000);
+  M5.Lcd.clear();
 }
