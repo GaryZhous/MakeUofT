@@ -1,7 +1,8 @@
 import cv2
-import tensorflow as tf
+# import tensorflow as tf
 import numpy as np
 from time import time
+import requests
 
 move = False
 moveCounter = 0
@@ -56,6 +57,7 @@ def display_process_update_frame(cap, frame1):
         #--------------------------
         # send_reset()
         #--------------------------
+        requests.get("http://10.0.0.1:8080/api/moved/100")
     
     move = newMove
     return frame2
