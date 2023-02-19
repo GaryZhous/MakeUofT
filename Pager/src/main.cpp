@@ -42,7 +42,7 @@ void loop() {
     if(M5.BtnA.wasPressed())
       next = -next;
     if(curr_time - timing == 1){
-       if(needmove && next < 0){
+       if(needmove() && next < 0){
          M5.Lcd.setCursor(25, 100);
          M5.Lcd.println("Need Move!");
          M5.Speaker.tone(F5);
