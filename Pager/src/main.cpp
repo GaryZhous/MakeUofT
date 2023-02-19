@@ -47,17 +47,21 @@ void loop() {
 }
 
 void initWiFi() {
+  int count = 0;
   WiFi.mode(WIFI_AP);
   WiFi.begin(ssid, password);
   M5.Lcd.setCursor(25, 100);
   M5.Lcd.println("Connecting to WiFi");
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED && count++ < 10) {
     M5.Lcd.println('.');
     delay(1000);
   }
   M5.Lcd.clear();
   M5.Lcd.setCursor(25, 100);
-  M5.Lcd.println("Ready!");
+  if(count < 10)
+    M5.Lcd.println("Ready!");
+  else
+    M5.Lcd.println("Failed to connect!");
 }
 
 void displaypower(){
