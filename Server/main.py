@@ -1,4 +1,4 @@
-from flask import Flask, abort
+from flask import Flask, abort, render_template
 from markupsafe import escape
 from datetime import datetime, timedelta
 
@@ -10,6 +10,17 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    room_ids = crud.list_rooms()
+    rooms = []
+    for _id in room_ids:
+        room = crud.read(_id)
+        rooms.append((room.room_id, room.need_move(), room.str_timedelta()))
+
+    return render_template('index.html', rooms=rooms)
+
+
+@app.route('/api')
+def api_index():
     return "<p>Welcome to RAPID.</p>"
 
 
@@ -40,7 +51,7 @@ def need_move(room_id):
     if room is None:
         abort(404)
 
-    if datetime.now() - room.last_moved > timedelta(hours=2):
+    if room.need_move():
         return 'Need move!'
     else:
         return 'OK!'
