@@ -21,7 +21,8 @@ enum frequency{
 const char* ssid = "RAPID";
 const char* password = "helloworld";
 ESP32Time rtc(3600);
-int timing = rtc.getMinute();
+int timing;
+int next = 1;
 void setup() {
     Serial.begin(115200);
     M5.begin();    
@@ -32,25 +33,28 @@ void setup() {
     WiFi.disconnect();
     delay(100);
     initWiFi();
+    timing = rtc.getMinute();
 }
 
 void loop() {
     M5.update();
     int curr_time = rtc.getMinute();
-    if(curr_time - timing == 5){
-      if(needmove){
-        M5.Lcd.setCursor(25, 100);
-        M5.Lcd.println("Need Move!");
-        M5.Speaker.tone(F5);
-      }
-      timing = curr_time;
+    if(M5.BtnA.wasPressed())
+      next = -next;
+    if(curr_time - timing == 1){
+       if(needmove && next < 0){
+         M5.Lcd.setCursor(25, 100);
+         M5.Lcd.println("Need Move!");
+         M5.Speaker.tone(F5);
+       }
+       timing = curr_time;
     }
     int fren[] = {F1,F2,F3,F4,F5};
     M5.Lcd.setCursor(25, 100);
-    if (M5.BtnA.wasPressed()) {
+    if(M5.BtnB.wasPressed()){
         M5.Lcd.println("Beeping activated");
         M5.Speaker.tone(fren[rand()%5], 200); //200 miliseconds ringing
-    }else if (M5.BtnC.wasPressed()){
+    }else if(M5.BtnC.wasPressed()){
         M5.Lcd.println("Stop button was pressed!");
         M5.Speaker.end();
         delay(500);
