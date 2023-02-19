@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return "<p>Hello world!</p>"
+def index():
+    return "<p>Welcome to RAPID.</p>"
 
 
 @app.route('/api/create/<string:room_id>')
@@ -46,6 +46,19 @@ def need_move(room_id):
         return 'OK!'
 
 
+@app.route('/api/force_move/<string:room_id>')
+def force_move(room_id):
+    room = crud.read(room_id)
+
+    if room is None:
+        abort(404)
+
+    room.last_moved = datetime.now() - timedelta(hours=3)
+    crud.update(room)
+
+    return 'OK!'
+
+
 if __name__ == '__main__':
     crud.init_db()
-    app.run('0.0.0.0')
+    app.run('0.0.0.0', '8080')
