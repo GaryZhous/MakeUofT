@@ -1,8 +1,14 @@
 #include <Arduino.h>
 #include <M5Stack.h>
 #include "WiFi.h"
+// #include "ESPAsyncWebServer.h"
+#include "HTTPClient.h"
+#include "ESP32Time.h"
+
 extern void initWiFi();
 extern void displaypower();
+extern bool needmove();
+extern void warn();
 //set the frequency of the speaker (unit: Hz)
 enum frequency{
   F1 = 200,
@@ -12,9 +18,10 @@ enum frequency{
   F5 = 900
 };
 
-const char* ssid = "RPM";
+const char* ssid = "RAPID";
 const char* password = "helloworld";
-
+ESP32Time rtc(3600);
+int timing = rtc.getMinute();
 void setup() {
     Serial.begin(115200);
     M5.begin();    
@@ -29,15 +36,21 @@ void setup() {
 
 void loop() {
     M5.update();
+    int curr_time = rtc.getMinute();
+    if(curr_time - timing == 5){
+      if(needmove){
+        M5.Lcd.setCursor(25, 100);
+        M5.Lcd.println("Need Move!");
+        M5.Speaker.tone(F5);
+      }
+      timing = curr_time;
+    }
     int fren[] = {F1,F2,F3,F4,F5};
     M5.Lcd.setCursor(25, 100);
     if (M5.BtnA.wasPressed()) {
         M5.Lcd.println("Beeping activated");
         M5.Speaker.tone(fren[rand()%5], 200); //200 miliseconds ringing
-    } else if (M5.BtnB.wasPressed()) {
-        M5.Lcd.println("Buzz mode activated");
-        M5.Speaker.tone(F5); //keep buzzing
-    } else if (M5.BtnC.wasPressed()) {
+    }else if (M5.BtnC.wasPressed()){
         M5.Lcd.println("Stop button was pressed!");
         M5.Speaker.end();
         delay(500);
@@ -62,6 +75,22 @@ void initWiFi() {
     M5.Lcd.println("Ready!");
   else
     M5.Lcd.println("Failed to connect!");
+}
+
+bool needmove() {
+  HTTPClient http;
+  http.begin("http://10.0.0.1:8080/api/need_move/100");
+  int code = http.GET();
+  if (code == HTTP_CODE_OK) {
+    String resp = http.getString();
+    if (resp == "Need move!") {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  return false;
 }
 
 void displaypower(){
