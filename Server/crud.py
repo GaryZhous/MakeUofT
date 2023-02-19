@@ -1,5 +1,6 @@
 import sqlite3
 import datetime
+from babel.dates import format_timedelta
 
 
 DB_PATH = 'db.sqlite'
@@ -12,6 +13,13 @@ class Room:
 
     def moved(self):
         self.last_moved = datetime.datetime.now()
+
+    def str_timedelta(self):
+        delta = datetime.datetime.now() - self.last_moved
+        return format_timedelta(delta, granularity='minute', locale='en_US')
+
+    def need_move(self):
+        return datetime.datetime.now() - self.last_moved > datetime.timedelta(hours=2)
 
 
 def init_db():
@@ -46,3 +54,10 @@ def update(room: Room):
 def delete(room_id: str):
     with sqlite3.connect(DB_PATH, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES) as conn:
         conn.execute('DELETE FROM rooms WHERE id=?', (room_id,))
+
+
+def list_rooms():
+    with sqlite3.connect(DB_PATH, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES) as conn:
+        results = conn.execute('SELECT id FROM rooms').fetchall()
+
+        return [r[0] for r in results] if results is not None else None

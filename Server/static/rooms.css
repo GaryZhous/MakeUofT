@@ -1,4 +1,4 @@
-p, 
+p,
 ul {
   border: 2px solid rgb(0, 255, 30);
   padding: .5em;
@@ -17,5 +17,9 @@ ul {
 
 .block {
   display: block;
-}      
-    
+}
+
+.highlight {
+  color: red;
+  font-weight: bold;
+}
