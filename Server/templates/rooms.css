@@ -1,0 +1,21 @@
+p, 
+ul {
+  border: 2px solid rgb(0, 255, 30);
+  padding: .5em;
+}
+
+.block,
+li {
+  border: 2px solid rgb(0, 0, 0);
+  padding: .5em;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+}
+
+.block {
+  display: block;
+}      
+    
