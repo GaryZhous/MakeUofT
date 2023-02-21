@@ -1,12 +1,12 @@
 ## Inspiration
 
-In the US alone, over 3 million patients suffer from decubitus ulcers, or bed sores, as a result of sustained pressure being placed on a particular part of the body, from lying down for a prolonged period of time; hospitals in particular, see up to 38% of patients affected by bed sores [1]. It is estimated that the cost of treating pressure ulcers is 2.5 times the cost of preventing them [2]. Our team set out on a mission to solve this issue by prioritizing nurses to frequent patients more often who are bedridden through R.A.P.I.D.
+In the US alone, over 3 million patients suffer from decubitus ulcers, or bed sores, as a result of sustained pressure being placed on a particular part of the body, from lying down for a prolonged period of time; hospitals in particular, see up to 38% of patients affected by bed sores. It is estimated that the cost of treating pressure ulcers is 2.5 times the cost of preventing them. Our team set out on a mission to solve this issue by prioritizing nurses to frequent patients more often who are bedridden through R.A.P.I.D.
 
 <img src="https://github.com/GaryZhous/MakeUofT/blob/main/RAPID_System.png" title="Components" width=50% height=50%>
 
 ## What it does
 
-To avoid bed sores, a patient shouldn’t be stationary for more than two hours [3]. Our sensor module detects if significant movement is made by the patient. If the patient remains still for two hours, a nearby nurse is pinged every 10 minutes until they come and rotate the patient.
+To avoid bed sores, a patient shouldn’t be stationary for more than two hours. Our sensor module detects if significant movement is made by the patient. If the patient remains still for two hours, a nearby nurse is pinged every 10 minutes until they come and rotate the patient.
 
 ## How we built it
 
