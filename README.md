@@ -2,7 +2,7 @@
 
 In the US alone, over 3 million patients suffer from decubitus ulcers, or bed sores, as a result of sustained pressure being placed on a particular part of the body, from lying down for a prolonged period of time; hospitals in particular, see up to 38% of patients affected by bed sores [1]. It is estimated that the cost of treating pressure ulcers is 2.5 times the cost of preventing them [2]. Our team set out on a mission to solve this issue by prioritizing nurses to frequent patients more often who are bedridden through R.A.P.I.D.
 
-<img src="https://github.com/GaryZhous/MakeUofT/blob/main/RAPID_System.png" width=50% height=50%>
+<img src="https://github.com/GaryZhous/MakeUofT/blob/main/RAPID_System.png" title="Components" width=50% height=50%>
 
 ## What it does
 
