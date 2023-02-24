@@ -1,3 +1,7 @@
+# R.A.P.I.D: Remote Automated Patient Image Detection
+
+***Submitted to [MakeUofT 2023](https://devpost.com/software/the-pager-reinvented) by [Gary Zhou](https://garyzhousih.com/), [Joe Dai](https://j0e.ca/), [Samar Qureshi](https://samarq.org/), [Swarnava Ghosh](https://github.com/swarnavaghosh04).***
+
 ## Inspiration
 
 In the US alone, over 3 million patients suffer from decubitus ulcers, or bed sores, as a result of sustained pressure being placed on a particular part of the body, from lying down for a prolonged period of time; hospitals in particular, see up to 38% of patients affected by bed sores. It is estimated that the cost of treating pressure ulcers is 2.5 times the cost of preventing them. Our team set out on a mission to solve this issue by prioritizing nurses to frequent patients more often who are bedridden through R.A.P.I.D.
